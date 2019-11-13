@@ -1,3 +1,5 @@
+import { merge } from 'lodash'
+
 /**
  * Creates POST body for any AJAX request
  *
@@ -21,8 +23,8 @@ export default function (payload, route, namespace, formPayload = {}) {
     [ajaxNamespace]: 1,
     route,
     payload: payload ? JSON.stringify(payload) : null,
-    ...formPayload,
   }
+  merge(params, formPayload)
   const formData = new FormData()
   Object.keys(params).forEach((key) => formData.append(key, params[key]))
 
