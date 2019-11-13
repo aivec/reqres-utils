@@ -1,6 +1,6 @@
 {
   "name": "@aivec/reqres-utils",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Common request and response utility functions (ie. req body creation, error handling, etc.)",
   "main": "dist/index.js",
   "scripts": {

@@ -17,6 +17,7 @@ import { stringify } from 'qs'
  * @param {String} route
  * @param {String} namespace window object namespace
  * @param {Object} formPayload extra form fields to be merged with the final FormData object
+ * @param {String} routeNamespace
  * @param {Boolean} raw true: returns raw params object. false: returns qs stringified params
  * @returns {String|Object}
  */
@@ -25,12 +26,14 @@ export default function(
   route,
   namespace,
   formPayload = {},
+  routeNamespace = 'default',
   raw = false
 ) {
   const { nonceKey, ajaxNamespace, nonce } = window[namespace]
   const params = {
     [nonceKey]: nonce,
     [ajaxNamespace]: 1,
+    namespace: routeNamespace,
     route,
     payload: payload ? JSON.stringify(payload) : null,
   }
