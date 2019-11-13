@@ -1,4 +1,4 @@
-import CreateRequestBody from './CreateRequestBody'
-import CreateErrorMessage from './CreateErrorMessage'
+import createRequestBody from './createRequestBody'
+import createErrorMessage from './createErrorMessage'
 
-export { CreateRequestBody, CreateErrorMessage }
+export { createRequestBody, createErrorMessage }
