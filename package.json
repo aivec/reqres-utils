@@ -1,6 +1,6 @@
 {
   "name": "@aivec/reqres-utils",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Common request and response utility functions (ie. req body creation, error handling, etc.)",
   "main": "dist/index.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/aivec/reqres-utils#readme",
   "dependencies": {
     "lodash": "^4.17.15",
+    "qs": "^6.9.1",
     "webpack": "^4.39.3"
   },
   "devDependencies": {
