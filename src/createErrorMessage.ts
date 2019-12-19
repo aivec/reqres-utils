@@ -1,8 +1,13 @@
-const makeDefaultError = (errorcodes, errormetamap) => {
-  const m = errormetamap[errorcodes.UNKNOWN_ERROR].message
+import { ErrorCodes, ErrorMetaMap, GenericErrorResponse } from './index.d'
+
+const makeDefaultError = (
+  errorcodes: ErrorCodes,
+  errormetamap: ErrorMetaMap
+): GenericErrorResponse => {
+  const { message } = errormetamap[errorcodes.UNKNOWN_ERROR]
   return {
     response: {
-      data: { code: 500, m },
+      data: { code: 500, message },
       status: 500,
     },
   }
@@ -12,25 +17,27 @@ const makeDefaultError = (errorcodes, errormetamap) => {
  * Returns user facing error if it exists in error code map, displays default
  * error otherwise
  *
+ * @remarks
  * This function requires corresponding 'errorcodes' and 'errormetamap' variables
- * set on the window object for the given namespace to run properly
+ * set on the window object for the given namespace in order to run properly
  *
- * @author Evan D Shaw <evandanielshaw@gmail.com>
- * @export
- * @param {Object} error
- * @param {String} namespace window object namespace
- * @returns {String}
+ * @param error - the error response object thrown by (axios, fetch, etc.)
+ * @param namespace - window object key which contains your project's global JS object
+ * @returns the appropriate error message
  */
-export default function (error, namespace) {
-  const { errorcodes, errormetamap } = window[namespace]
+export default function(
+  error: GenericErrorResponse | undefined,
+  namespace: string
+): string {
+  const { errorcodes, errormetamap } = (window as any)[namespace]
   let m = errormetamap[errorcodes.UNKNOWN_ERROR].message
   const defaultError = makeDefaultError(errorcodes, errormetamap)
   let err = error
-  if (!error) {
+  if (!err) {
     err = defaultError
-  } else if (!error.response) {
+  } else if (!err.response) {
     err = defaultError
-  } else if (!error.response.data) {
+  } else if (!err.response.data) {
     err = defaultError
   }
   const {
@@ -44,12 +51,13 @@ export default function (error, namespace) {
   if (message) {
     m = message
     // code lookup fallback if message isn't provided
-  } else if (errormetamap[code]) {
-    m = errormetamap[code].message
+  } else if (errormetamap[code || 500]) {
+    m = errormetamap[code || 500].message
     // for convenience, some low-level errors like 504s share the same code as
     // our custom error map, so we check here as a fallback
   } else if (errormetamap[status]) {
     m = errormetamap[status].message
   }
+
   return m
 }
