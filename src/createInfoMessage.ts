@@ -9,7 +9,7 @@
  * an empty string will be returned. Note that an empty string should ideally never
  * be returned.
  *
- * @param data - the response object returned by axios desctructed via `const { data } = axios.method`
+ * @param data - the response object returned by axios destructed via `const { data } = axios.method`
  * @param namespace - window object key which contains your project's global JS object
  * @returns the appropriate info message
  */
