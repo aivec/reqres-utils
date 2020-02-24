@@ -18,11 +18,11 @@ const makeDefaultError = (
  * error otherwise
  *
  * @remarks
- * This function requires corresponding 'errorcodes' and 'errormetamap' variables
- * set on the window object for the given namespace in order to run properly
+ * This function requires corresponding `errorcodes` and `errormetamap` variables
+ * set on the `window` object for the given namespace in order to run properly
  *
  * @param error - the error response object thrown by (axios, fetch, etc.)
- * @param namespace - window object key which contains your project's global JS object
+ * @param namespace - `window` object key which contains your project's global JS object
  * @returns the appropriate error message
  */
 export default function(
