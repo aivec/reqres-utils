@@ -1,11 +1,25 @@
 import createRequestBody from './createRequestBody'
 import createErrorMessage from './createErrorMessage'
 import createInfoMessage from './createInfoMessage'
-import createPostIdPermalinkReqBody from './createPostIdPermalinkReqBody'
+import {
+  InjectedErrorObjects,
+  InjectedInfoObjects,
+  InjectedRouterVariables,
+  ErrorCodes,
+  ErrorMetaMap,
+  ErrorResponse,
+  GenericErrorResponse,
+} from './index.d'
 
 export {
   createRequestBody,
   createErrorMessage,
   createInfoMessage,
-  createPostIdPermalinkReqBody,
+  InjectedErrorObjects,
+  InjectedInfoObjects,
+  InjectedRouterVariables,
+  ErrorCodes,
+  ErrorMetaMap,
+  ErrorResponse,
+  GenericErrorResponse,
 }

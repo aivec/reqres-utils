@@ -9,10 +9,11 @@ export interface InjectedErrorObjects {
   readonly errormetamap: ErrorMetaMap
 }
 
-export interface InjectedNonceVariables {
-  readonly nonceKey?: string
-  readonly ajaxNamespace?: string
-  readonly nonce?: string
+export interface InjectedRouterVariables {
+  readonly nonce: string
+  readonly nonceKey: string
+  readonly nonceField: string
+  readonly endpoint: string
 }
 
 export interface InjectedInfoObjects {
