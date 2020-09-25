@@ -1,9 +1,3 @@
-/* interface MyWindow extends Window {
-  [propName: string]: InjectedErrorObjects &
-    InjectedInfoObjects &
-    InjectedNonceVariables
-} */
-
 export interface InjectedErrorObjects {
   readonly errorcodes: ErrorCodes
   readonly errormetamap: ErrorMetaMap

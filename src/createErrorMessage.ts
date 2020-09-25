@@ -1,4 +1,4 @@
-import { ErrorCodes, ErrorMetaMap, GenericErrorResponse } from './index.d'
+import { ErrorCodes, ErrorMetaMap, GenericErrorResponse } from './types'
 
 const makeDefaultError = (
   errorcodes: ErrorCodes,

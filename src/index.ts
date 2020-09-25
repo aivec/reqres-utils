@@ -9,7 +9,7 @@ import {
   ErrorMetaMap,
   ErrorResponse,
   GenericErrorResponse,
-} from './index.d'
+} from './types'
 
 export {
   createRequestBody,
