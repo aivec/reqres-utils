@@ -7,7 +7,7 @@ import {
   InjectedRouterVariables,
   ErrorCodes,
   ErrorMetaMap,
-  ErrorResponse,
+  GenericError,
   GenericErrorResponse,
 } from './types'
 
@@ -20,6 +20,6 @@ export {
   InjectedRouterVariables,
   ErrorCodes,
   ErrorMetaMap,
-  ErrorResponse,
+  GenericError,
   GenericErrorResponse,
 }

@@ -1,5 +1,6 @@
 import { merge } from 'lodash'
 import { stringify } from 'qs'
+import { InjectedRouterVariables } from './types'
 
 /**
  * Creates POST body for any AJAX request
@@ -21,11 +22,13 @@ import { stringify } from 'qs'
  */
 export default function(
   namespace: string,
-  payload: object,
+  payload: object = {},
   formPayload: object = {},
   raw = false
-): object | string {
-  const { nonceKey, nonce } = (window as any)[namespace]
+): Record<string, unknown> | string {
+  const { nonceKey, nonce } = (window as any)[
+    namespace
+  ] as InjectedRouterVariables
   const params = {
     [nonceKey]: nonce,
     payload: payload ? JSON.stringify(payload) : null,

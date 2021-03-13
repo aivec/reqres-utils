@@ -1,17 +1,4 @@
-import { ErrorCodes, ErrorMetaMap, GenericErrorResponse } from './types'
-
-const makeDefaultError = (
-  errorcodes: ErrorCodes,
-  errormetamap: ErrorMetaMap
-): GenericErrorResponse => {
-  const { message } = errormetamap[errorcodes.UNKNOWN_ERROR]
-  return {
-    response: {
-      data: { code: 500, message },
-      status: 500,
-    },
-  }
-}
+import { InjectedErrorObjects, GenericErrorResponse } from './types'
 
 /**
  * Returns user facing error if it exists in error code map, displays default
@@ -28,36 +15,32 @@ const makeDefaultError = (
 export default function(
   error: GenericErrorResponse | undefined,
   namespace: string
-): string {
-  const { errorcodes, errormetamap } = (window as any)[namespace]
-  let m = errormetamap[errorcodes.UNKNOWN_ERROR].message
-  const defaultError = makeDefaultError(errorcodes, errormetamap)
-  let err = error
-  if (!err) {
-    err = defaultError
-  } else if (!err.response) {
-    err = defaultError
-  } else if (!err.response.data) {
-    err = defaultError
+): string | string[] {
+  const { errorcodes, errormetamap } = (window as any)[
+    namespace
+  ] as InjectedErrorObjects
+  const defaultMessage = errormetamap[errorcodes.UNKNOWN_ERROR].message
+
+  if (!error || !error.response || !error.response.data) {
+    return defaultMessage
   }
+
   const {
     response: {
-      data: { code, message },
-      status,
+      data: { errorcode, message },
     },
-  } = err
+  } = error
+
   // some error messages are generated with content dynamically, so a simple
   // code lookup wont suffice. Highest specificity first
   if (message) {
-    m = message
-    // code lookup fallback if message isn't provided
-  } else if (errormetamap[code || 500]) {
-    m = errormetamap[code || 500].message
-    // for convenience, some low-level errors like 504s share the same code as
-    // our custom error map, so we check here as a fallback
-  } else if (errormetamap[status]) {
-    m = errormetamap[status].message
+    return message
   }
 
-  return m
+  // code lookup fallback if message isn't provided
+  if (errormetamap[errorcode]) {
+    return errormetamap[errorcode].message || defaultMessage
+  }
+
+  return defaultMessage
 }

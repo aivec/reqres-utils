@@ -11,24 +11,28 @@ export interface InjectedRouterVariables {
 }
 
 export interface InjectedInfoObjects {
-  readonly infocodes: { [key: string]: number }
+  readonly infocodes: { [key: string]: number | string }
   readonly infometamap: { [key: number]: { message: string } }
 }
 
+export interface GenericError {
+  readonly debug: string | string[]
+  readonly message: string | string[]
+  readonly adminmsg: string | string[]
+  readonly errorcode: string | number
+  readonly errorname: string
+}
+
 export interface ErrorCodes {
-  readonly UNKNOWN_ERROR: number
-  [key: string]: number
+  readonly UNKNOWN_ERROR: number | string
+  readonly INTERNAL_SERVER_ERROR: number | string
+  readonly [key: string]: number | string
 }
 
 export interface ErrorMetaMap {
-  readonly [key: number]: { message: string }
-}
-
-export interface ErrorResponse {
-  readonly code?: number
-  readonly message: string
+  readonly [key: string]: GenericError
 }
 
 export interface GenericErrorResponse {
-  readonly response: { data: ErrorResponse; status: number }
+  readonly response: { data: GenericError; status: number }
 }
