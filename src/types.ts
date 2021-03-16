@@ -21,6 +21,7 @@ export interface GenericError {
   readonly adminmsg: string | string[]
   readonly errorcode: string | number
   readonly errorname: string
+  readonly data?: any
 }
 
 export interface ErrorCodes {
