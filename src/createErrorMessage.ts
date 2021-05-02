@@ -1,4 +1,4 @@
-import { InjectedErrorObjects, GenericErrorResponse } from './types'
+import { InjectedErrorObjects, HttpError } from './types'
 
 /**
  * Returns user facing error if it exists in error code map, displays default
@@ -6,19 +6,17 @@ import { InjectedErrorObjects, GenericErrorResponse } from './types'
  *
  * @remarks
  * This function requires corresponding `errorcodes` and `errormetamap` variables
- * set on the `window` object for the given namespace in order to run properly
+ * set on the `globalObject` parameter in order to run properly
  *
+ * @param globalObject - your project's global JS object
  * @param error - the error response object thrown by (axios, fetch, etc.)
- * @param namespace - `window` object key which contains your project's global JS object
  * @returns the appropriate error message
  */
 export default function(
-  error: GenericErrorResponse | undefined,
-  namespace: string
+  globalObject: InjectedErrorObjects,
+  error: HttpError | undefined
 ): string | string[] {
-  const { errorcodes, errormetamap } = (window as any)[
-    namespace
-  ] as InjectedErrorObjects
+  const { errorcodes, errormetamap } = globalObject as InjectedErrorObjects
   const defaultMessage = errormetamap[errorcodes.UNKNOWN_ERROR].message
 
   if (!error || !error.response || !error.response.data) {
