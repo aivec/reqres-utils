@@ -14,7 +14,8 @@ import { InjectedErrorObjects, HttpError } from './types'
  */
 export default function(
   globalObject: InjectedErrorObjects,
-  error: HttpError | undefined
+  error: HttpError | undefined,
+  type: 'default' | 'debug' | 'admin' = 'default'
 ): string | string[] {
   const { errorcodes, errormetamap } = globalObject as InjectedErrorObjects
   const defaultMessage = errormetamap[errorcodes.UNKNOWN_ERROR].message
@@ -25,18 +26,38 @@ export default function(
 
   const {
     response: {
-      data: { errorcode, message },
+      data: { errorcode, message, debug, adminmsg },
     },
   } = error
 
   // some error messages are generated with content dynamically, so a simple
   // code lookup wont suffice. Highest specificity first
+  if (type === 'debug') {
+    if (debug) {
+      return debug
+    }
+  }
+  if (type === 'admin' || type === 'debug') {
+    if (adminmsg) {
+      return adminmsg
+    }
+  }
   if (message) {
     return message
   }
 
   // code lookup fallback if message isn't provided
   if (errormetamap[errorcode]) {
+    if (type === 'debug') {
+      if (errormetamap[errorcode].debug) {
+        return errormetamap[errorcode].debug
+      }
+    }
+    if (type === 'admin' || type === 'debug') {
+      if (errormetamap[errorcode].adminmsg) {
+        return errormetamap[errorcode].adminmsg
+      }
+    }
     return errormetamap[errorcode].message || defaultMessage
   }
 

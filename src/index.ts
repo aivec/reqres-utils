@@ -1,8 +1,9 @@
 import createRequestBody from './createRequestBody'
 import createErrorMessage from './createErrorMessage'
+import createAdminErrorMessage from './createAdminErrorMessage'
 import createInfoMessage from './createInfoMessage'
 import getErrorCodeFromHttpError from './getErrorCodeFromHttpError'
-import {
+import type {
   InjectedErrorObjects,
   InjectedInfoObjects,
   InjectedRouterVariables,
@@ -16,6 +17,7 @@ import {
 export {
   createRequestBody,
   createErrorMessage,
+  createAdminErrorMessage,
   createInfoMessage,
   getErrorCodeFromHttpError,
   InjectedErrorObjects,
